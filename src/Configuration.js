@@ -71,20 +71,38 @@ function groupByMMRIterative(players) {
 
 function createBalancedTeamIterative(players) {
     if (players.length > 0) {
-        const limitedPlayers = players.slice(0, 10); //Membatasi data pemain hingga 10 saat matchmaking lobby
+        const limitedPlayers = players.slice(0, 10); // Limit players to 10 for matchmaking lobby
         
-        let team1 = new Array(limitedPlayers);
-        let team2 = new Array(limitedPlayers);
-
+        let team1 = [];
+        let team2 = [];
+        
         let team1Count = 0;
         let team2Count = 0;
 
-        for (let i = 0; i < players.length; i++) {
-            if (team1Count < 5) {
-                team1[team1Count++] = players[i];
-            } else if (team2Count < 5) {
-                team2[team2Count++] = players[i];
+        for (let i = 0; i < limitedPlayers.length; i++) 
+        {
+            if (team1Count < 5) 
+            {
+                team1[team1Count++] = limitedPlayers[i];
+            } 
+            else if (team2Count < 5) 
+            {
+                team2[team2Count++] = limitedPlayers[i];
             }
+        }
+
+        // Calculate MMR for each team
+        const team1MMR = team1.reduce((acc, player) => acc + player.mmr, 0) / team1.length;
+        const team2MMR = team2.reduce((acc, player) => acc + player.mmr, 0) / team2.length;
+
+        // Compare MMRs and print balance status
+        const mmrDifference = Math.abs(team1MMR - team2MMR);
+        if (mmrDifference < 100) {
+            console.log("Unbalanced, one of the teams has too weak MMR");
+        } else if (mmrDifference > 200) {
+            console.log("Unbalanced, one of the teams has too strong MMR");
+        } else {
+            console.log("Balanced");
         }
 
         return { team1, team2 };
@@ -95,28 +113,46 @@ function createBalancedTeamIterative(players) {
 function createBalancedTeamRecursive(players) {
     if (players.length === 0)
     {
-      return null;
-    }
+        return null
+    };
 
     const limitedPlayers = players.slice(0, 10); // Limit players to 10 for matchmaking lobby
-    let team1 = [];
-    let team2 = [];
+    const team1 = [];
+    const team2 = [];
 
-    assignPlayers(limitedPlayers, team1, team2, 0);
+    assignTeams(limitedPlayers, team1, team2, 0);
+
+    // Calculate MMR for each team
+    const team1MMR = team1.reduce((acc, player) => acc + player.mmr, 0) / team1.length;
+    const team2MMR = team2.reduce((acc, player) => acc + player.mmr, 0) / team2.length;
+
+    // Compare MMRs and print balance status
+    const mmrDifference = Math.abs(team1MMR - team2MMR);
+    if (mmrDifference < 100) {
+        console.log("Unbalanced, one of the teams has too weak MMR");
+    } else if (mmrDifference > 200) {
+        console.log("Unbalanced, one of the teams has too strong MMR");
+    } else {
+        console.log("Balanced");
+    }
+
     return { team1, team2 };
 }
 
-function assignPlayers(limitedPlayers, team1, team2, index) {
-    if (index >= limitedPlayers.length)
+function assignTeams(limitedPlayers, team1, team2, index) 
+{
+    if (index >= limitedPlayers.length) 
     {
-      return;
+        return;
     }
 
-    if (team1.length < 5) {
-        team1[team1.length] = limitedPlayers[index]; // Using array length to add element
-    } else if (team2.length < 5) {
-        team2[team2.length] = limitedPlayers[index]; // Using array length to add element
+    if (team1.length < 5) 
+    {
+        team1[team1.length] = limitedPlayers[index];
+    } 
+    else if (team2.length < 5) 
+    {
+        team2[team2.length] = limitedPlayers[index];
     }
-
-    assignPlayers(limitedPlayers, team1, team2, index + 1);
-}
+    assignTeams(limitedPlayers, team1, team2, index + 1);
+};
