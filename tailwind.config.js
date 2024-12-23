@@ -10,6 +10,8 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    flowbite.plugin()
+    flowbite.plugin({
+      charts: true,
+    })
   ],
 }

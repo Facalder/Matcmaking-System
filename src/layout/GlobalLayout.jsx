@@ -18,7 +18,7 @@ export default function GlobalLayout({ children }) {
       <div className="flex h-[calc(100vh-86px)]">
         <CommandSidebar />
         <div className="flex flex-col flex-1">
-          <main className="flex gap-6 p-6 h-full">
+          <main className="flex gap-4 p-4 h-full">
             {children}
 
             <div className="right-4 bottom-4 fixed">
