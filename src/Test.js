@@ -6,7 +6,7 @@ function createPlayer(id, rank, role, partySize) {
         role: role,
         partySize: partySize,
         printPlayer: function() {
-            console.log(Player(${this.playerId}, Rank: {this.rank}, Role: ${this.role}, Party Size: ${this.partySize}));
+            console.log(Player(`${this.playerId}, Rank: {this.rank}, Role: ${this.role}, Party Size: ${this.partySize}`));
         }
     };
 }
@@ -66,7 +66,7 @@ function main() {
 
     // Display matchmaking results
     for (let i = 0; i < matchedTeams.length; i++) {
-        console.log(Team ${i + 1}:);
+        console.log(`Team ${i + 1}:`);
         for (const player of matchedTeams[i]) {
             player.printPlayer();
         }
