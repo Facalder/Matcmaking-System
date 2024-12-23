@@ -114,7 +114,7 @@ function createBalancedTeamRecursive(players) {
     if (players.length === 0)
     {
         return null;
-    };
+    }
 
     const limitedPlayers = players.slice(0, 10); // Limit players to 10 for matchmaking lobby
     const team1 = [];
