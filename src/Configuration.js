@@ -143,7 +143,7 @@ function assignTeams(limitedPlayers, team1, team2, index)
 {
     if (index >= limitedPlayers.length) 
     {
-        return;
+        return index;
     }
 
     if (team1.length < 5) 
