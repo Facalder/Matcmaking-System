@@ -69,7 +69,7 @@ function groupByMMRIterative(players) {
     return playersByMMR;
 }
 
-function createBalancedTeam(players) {
+function createBalancedTeamIterative(players) {
     if (players.length > 0) {
         const limitedPlayers = players.slice(0, 10); //Membatasi data pemain hingga 10 saat matchmaking lobby
         
@@ -90,4 +90,33 @@ function createBalancedTeam(players) {
         return { team1, team2 };
     }
     return null;
+}
+
+function createBalancedTeamRecursive(players) {
+    if (players.length === 0)
+    {
+      return null;
+    }
+
+    const limitedPlayers = players.slice(0, 10); // Limit players to 10 for matchmaking lobby
+    let team1 = [];
+    let team2 = [];
+
+    assignPlayers(limitedPlayers, team1, team2, 0);
+    return { team1, team2 };
+}
+
+function assignPlayers(limitedPlayers, team1, team2, index) {
+    if (index >= limitedPlayers.length)
+    {
+      return;
+    }
+
+    if (team1.length < 5) {
+        team1[team1.length] = limitedPlayers[index]; // Using array length to add element
+    } else if (team2.length < 5) {
+        team2[team2.length] = limitedPlayers[index]; // Using array length to add element
+    }
+
+    assignPlayers(limitedPlayers, team1, team2, index + 1);
 }
