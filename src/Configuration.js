@@ -76,6 +76,8 @@ function createBalancedTeam(players) {
         let team1Count = 0;
         let team2Count = 0;
 
+        const limitedPlayers = players.slice(0, 10); //Membatasi data pemain hingga 10 saat matchmaking lobby
+
         for (let i = 0; i < players.length; i++) {
             if (team1Count < 5) {
                 team1[team1Count++] = players[i];
