@@ -71,12 +71,13 @@ function groupByMMRIterative(players) {
 
 function createBalancedTeam(players) {
     if (players.length > 0) {
-        let team1 = new Array(5);
-        let team2 = new Array(5);
+        const limitedPlayers = players.slice(0, 10); //Membatasi data pemain hingga 10 saat matchmaking lobby
+        
+        let team1 = new Array(limitedPlayers);
+        let team2 = new Array(limitedPlayers);
+
         let team1Count = 0;
         let team2Count = 0;
-
-        const limitedPlayers = players.slice(0, 10); //Membatasi data pemain hingga 10 saat matchmaking lobby
 
         for (let i = 0; i < players.length; i++) {
             if (team1Count < 5) {
