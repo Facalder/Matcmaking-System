@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import CommandSidebar from "../components/CommandSidebar";
 import ProjectConfigDrawer from "../components/ProjectConfigDrawer";
 import DashboardNavbar from "../components/DashboardNavbar";
 import { Button, Tooltip } from "flowbite-react";
@@ -13,7 +12,7 @@ export default function GlobalLayout({ children }) {
   const handleDrawerClose = () => setDrawerIsOpen(false);
 
   return (
-    <>
+    /*<>
       <DashboardNavbar />
       <div className="flex h-[calc(100vh-86px)]">
         <CommandSidebar />
@@ -35,6 +34,21 @@ export default function GlobalLayout({ children }) {
         drawerIsOpen={drawerIsOpen}
         close={handleDrawerClose}
       />
+    </>*/
+    <>
+      <div className="flex flex-col flex-1">
+        <main className="flex gap-4 p-4 h-full">
+          {children}
+
+          <div className="right-4 bottom-4 fixed">
+            <Tooltip content="Project Config">
+              <Button pill size="sm" onClick={() => setDrawerIsOpen(true)}>
+                <HiOutlineCog8Tooth className="w-8 h-8" />
+              </Button>
+            </Tooltip>
+          </div>
+        </main>
+      </div>
     </>
   );
 }

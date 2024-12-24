@@ -1,21 +1,19 @@
 import { Table, Pagination } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { randomizePlayer } from "../../server/controller/PlayerController";
 
-export default function DataPlayerTable() {
-  const [playerData, setPlayerData] = useState([]);
+export default function DataPlayerTable({ playerData }) {
+   const data = playerData.map(player => ({
+   Id: player.Id,
+   Name: player.name,
+   MMR: player.MMR,
+   Rank: player.Rank,
+   Role: player.Role,
+ }));
+
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 50;
+  const itemsPerPage = 20;
 
-  useEffect(() => {
-    const items = randomizePlayer();
-
-    if (items) {
-      setPlayerData(items);
-    }
-  }, []);
-
-  const totalPages = Math.ceil(playerData.length / itemsPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const getCurrentPageData = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -29,9 +27,11 @@ export default function DataPlayerTable() {
 
   return (
     <>
-      {playerData && playerData.length != 0 ? (
-        <div className="flex flex-col gap-4">
-          <Table hoverable>
+      {!playerData ? (
+        <p>kosong</p>
+      ) : (
+        <div className="space-y-4">
+          <Table>
             <Table.Head className="top-0 sticky">
               <Table.HeadCell>Id</Table.HeadCell>
               <Table.HeadCell>Name</Table.HeadCell>
@@ -53,9 +53,9 @@ export default function DataPlayerTable() {
             </Table.Body>
           </Table>
 
-          {/* Tambahkan komponen Pagination */}
           {totalPages > 1 && (
-            <div className="flex justify-center">
+            <div className="flex justify-between items-center pb-2">
+              <p className="font-medium text-gray-500">Total All Players Data: {data.length}</p>
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -64,8 +64,6 @@ export default function DataPlayerTable() {
             </div>
           )}
         </div>
-      ) : (
-        <p>Data Kosong!</p>
       )}
     </>
   );

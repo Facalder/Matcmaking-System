@@ -1,12 +1,8 @@
-import { Flowbite } from "flowbite-react";
-import GlobalLayout from "./layout/GlobalLayout";
-import DataPlayerTable from "./components/DataPlayerTable";
-import PlayerRoom from "./components/PlayerRoom";
-import LogicChart from "./components/LogicChart";
+import HomePage from "./pages/HomePage";
 
 export default function App() {
   return (
-    <>
+    /*<>
       <Flowbite>
         <GlobalLayout>
           <div className="border-2 border-gray-100 bg-white rounded-2xl w-3/5 max-h-full overflow-y-auto">
@@ -52,6 +48,9 @@ export default function App() {
           </div>
         </GlobalLayout>
       </Flowbite>
+    </>*/
+    <>
+      <HomePage/>
     </>
   );
 }

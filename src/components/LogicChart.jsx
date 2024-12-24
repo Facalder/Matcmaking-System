@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import ReactApexChart from "react-apexcharts";
-import { createBalancedTeamIterative, createBalancedTeamRecursive, randomizePlayer } from "../../server/controller/PlayerController";
 
 export default function LogicChart() {
     const inputSize = [20, 7500, 1000, 10000, 100000];
