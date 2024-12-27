@@ -95,9 +95,9 @@ export default function HomePage() {
 
           playersData.forEach(async (player, index) => {
             if (currentRoom.Team1.length < playerPerRooms / 2) {
-              currentRoom.Team1.push(player);
+              currentRoom.Team1[currentRoom.Team1.length] = player[index];
             } else if (currentRoom.Team2.length < playerPerRooms / 2) {
-              currentRoom.Team2.push(player);
+              currentRoom.Team2[currentRoom.Team1.length] = player[index];
             }
 
             const avgTeam1MMR =
