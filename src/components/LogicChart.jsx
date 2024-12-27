@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import ReactApexChart from "react-apexcharts";
 
 export default function LogicChart() {
-    const inputSize = [20, 7500, 1000, 10000, 100000];
+    const inputSize = [10, 100, 1000, 10000];
     const [executionTimesIterative, setExecutionTimesIterative] = useState([]);
     const [executionTimesRecursive, setExecutionTimesRecursive] = useState([]);
 
