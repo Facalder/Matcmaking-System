@@ -19,7 +19,6 @@ export default function CommandSidebar({
   playersData,
 }) {
   const [playersCount, setPlayersCount] = useState("");
-  const [automaticRun, setAutomaticRun] = useState("");
 
   const submitToFetchPlayer = () => {
     if (playersCount) {
@@ -33,6 +32,7 @@ export default function CommandSidebar({
   const submitToCreateRoomByRecursive = () => {
     if (playersData) {
       handleRunProgramMatchmakingRecursive(playersData)
+      alert("Berhasil membuat")
     }else {
       return;
     }
@@ -114,7 +114,7 @@ export default function CommandSidebar({
                 className="w-full"
                 size="sm"
                 color="success"
-                onClick={submitToCreateRoomByRecursive}
+                onClick={handleRunProgramMatchmakingRecursive}
               >
                 Create Room by Recursive
                 <HiOutlinePlay className="ml-2 w-5 h-5" />

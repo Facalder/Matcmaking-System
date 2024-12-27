@@ -3,37 +3,14 @@
 import { useState } from "react"
 import ReactApexChart from "react-apexcharts";
 
-export default function LogicChart() {
+export default function LogicChart({ runningTimeIterative, runningTimeRecursive }) {
+    const [executionTimesIterative, setExecutionTimesIterative] = useState([])
+    setExecutionTimesIterative(runningTimeIterative)
+
+    const [executionTimesRecursive, setExecutionTimesRecursive] = useState([])
+    setExecutionTimesRecursive(runningTimeRecursive)
+
     const inputSize = [20, 7500, 1000, 10000, 100000];
-    const executionTimesIterative = [];
-    
-    const executionTimesRecursive = [];
-
-    const testPerformance = () => { 
-      inputSize.forEach(size => { 
-        const startTime = performance.now()
-        
-        const players = randomizePlayer(size)
-        createBalancedTeamIterative(players)
-
-        const endTime = performance.now()
-        const timeElapsed = endTime - startTime
-
-        executionTimesIterative.push(timeElapsed);
-      })
-    }
-
-    const testPerformanceRecursive = () => { 
-        const startTime = performance.now();
-
-        const players = randomizePlayer(size);
-        createBalancedTeamRecursive(players);
-
-        const endTime = performance.now();
-        const timeElapsed = endTime - startTime;
-
-        executionTimesRecursive.push(timeElapsed);
-    }
     
     const [chartState, setChartState] = useState({
       series: [
