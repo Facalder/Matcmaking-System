@@ -176,12 +176,12 @@ export default function HomePage() {
         playerCount++;
       }
 
-      // Hitung MMR untuk room saat ini
+      (Hitung MMR untuk room saat ini)
       const avgTeam1MMR = totalMMREachTeam(team1) / team1.length;
       const avgTeam2MMR = totalMMREachTeam(team2) / team2.length;
       const mmrGap = Math.abs(avgTeam1MMR - avgTeam2MMR);
 
-      // Simpan room ke hasil
+      (Simpan room ke hasil)
       result[`rooms${roomIndex}`] = {
         Team1: team1,
         Team2: team2,
@@ -195,15 +195,15 @@ export default function HomePage() {
     };
     */
 
-    const createBalancedTeamIterative = () => { 
-    try {
-      const playersDataLength = playersData.length
-      let Team1 = []
-      let Team2 = []
+    const createBalancedTeamIterative = () => { // Function to create two balanced teams
+    try { // Start of try block to handle potential errors
+      const playersDataLength = playersData.length // Get the length of the players data array
+      let Team1 = [] // Initialize an empty array for Team 1
+      let Team2 = [] // Initialize an empty array for Team 2
 
-      if (playersData.length > 0) {
-        const playerPerTeams = Math.floor(10 / 2)
-      
+      if (playersData.length > 0) { // Check if there are players in the data
+        const playerPerTeams = Math.floor(10 / 2) // Calculate the number of players per team (5 in this case)
+
         // for (let i = 0; i < playersData.length; i++) {
         //   const currentPlayer = playersData[i]
 
@@ -214,47 +214,53 @@ export default function HomePage() {
         //   }
         // }
 
-        playersData.forEach((player, index) => {
-          if (Team1.length < playerPerTeams) {
-            Team1.push(player)
-          }else if (Team2.length < playerPerTeams) {
-            Team2.push(player)
+        playersData.forEach((player, index) => { // Iterate over each player in the players data
+          if (Team1.length < playerPerTeams) { // Check if Team 1 has space for more players
+            Team1.push(player) // Add the player to Team 1
+          } else if (Team2.length < playerPerTeams) { // Check if Team 2 has space for more players
+            Team2.push(player) // Add the player to Team 2
           }
         })
       }
 
-      return {
-        Team1,
-        Team2
+      return { // Return an object containing both teams
+        Team1, // Return Team 1
+        Team2 // Return Team 2
       }
-    }catch (e) {
-      console.log(e.message)
+    } catch (e) { // Catch any errors that occur in the try block
+      console.log(e.message) // Log the error message to the console
     }
   }
+
 
   const createBalancedTeamRecursive = (playersData, n = playersData.length, Team1 = [], Team2 = []) => {
     try {
+      // Base case: If no players left to assign, return the teams
       if (n === 0) {
         return {
-          Team1,
-          Team2
+          Team1, // Return the first team
+          Team2  // Return the second team
         }
       } else {
-        const playerPerTeams = 10
-        const currentPlayer = playersData[n - 1]
+        const playerPerTeams = 10; // Define the maximum number of players per team
+        const currentPlayer = playersData[n - 1]; // Get the current player from the playersData array
 
+        // Check if Team1 has space for more players
         if (Team1.length < playerPerTeams / 2) {
-          Team1.push(currentPlayer)
-        } else if (Team2.length < playerPerTeams / 2) {
-          Team2.push(currentPlayer)
+          Team1.push(currentPlayer); // Add the current player to Team1
+        } 
+        // Check if Team2 has space for more players
+        else if (Team2.length < playerPerTeams / 2) {
+          Team2.push(currentPlayer); // Add the current player to Team2
         }
 
+        // Recursive call to assign the next player
         return createBalancedTeamRecursive(playersData, n - 1, Team1, Team2);
       }
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message); // Log any errors that occur during execution
     }
-  }
+}
 
     useEffect(() => { 
         fetchAllPlayers();
