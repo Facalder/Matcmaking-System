@@ -201,7 +201,7 @@ export default function HomePage() {
       let Team1 = [] // Initialize an empty array for Team 1
       let Team2 = [] // Initialize an empty array for Team 2
 
-      if (playersData.length > 0) { // Check if there are players in the data
+      if (playersDataLength > 0) { // Check if there are players in the data
         const playerPerTeams = Math.floor(10 / 2) // Calculate the number of players per team (5 in this case)
 
         // for (let i = 0; i < playersData.length; i++) {
@@ -216,9 +216,9 @@ export default function HomePage() {
 
         playersData.forEach((player, index) => { // Iterate over each player in the players data
           if (Team1.length < playerPerTeams) { // Check if Team 1 has space for more players
-            Team1.push(player) // Add the player to Team 1
+            Team1[Team1.length] = player[index] // Add the player to Team 1, with index represent which player data being processed
           } else if (Team2.length < playerPerTeams) { // Check if Team 2 has space for more players
-            Team2.push(player) // Add the player to Team 2
+            Team2[Team2.length] = player[index] // Add the player to Team 2, with index represent which player data being processed
           }
         })
       }
@@ -247,11 +247,11 @@ export default function HomePage() {
 
         // Check if Team1 has space for more players
         if (Team1.length < playerPerTeams / 2) {
-          Team1.push(currentPlayer); // Add the current player to Team1
+          Team1[Team1.length] = currentPlayer; // Add the current player to Team1. No need to add array, because currentPlayer is assigned with playersData array
         } 
         // Check if Team2 has space for more players
         else if (Team2.length < playerPerTeams / 2) {
-          Team2.push(currentPlayer); // Add the current player to Team2
+          Team2[Team2.length] = currentPlayer; // Add the current player to Team2. No need to add array, because currentPlayer is assigned with playersData array
         }
 
         // Recursive call to assign the next player
