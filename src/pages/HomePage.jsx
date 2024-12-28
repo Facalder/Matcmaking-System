@@ -75,6 +75,7 @@ export default function HomePage() {
       return totalMMR;
     };
 
+    /*
     const createBalancedTeamIterative = () => {
       try {
         const result = {}; 
@@ -152,7 +153,7 @@ export default function HomePage() {
       let result = {};
       assignRooms(players, result, 1, 0); // Mulai dari room 1 dan indeks 0
 
-      // Simpan hasil ke state
+      (Simpan hasil ke state)
       setMatchmakingDataRecursive(result);
     };
 
@@ -165,7 +166,7 @@ export default function HomePage() {
       let team2 = [];
       let playerCount = 0;
 
-      // Tambahkan pemain ke room saat ini
+      (Tambahkan pemain ke room saat ini)
       while (playerCount < 10 && startIndex + playerCount < players.length) {
         if (team1.length < 5) {
           team1.push(players[startIndex + playerCount]);
@@ -189,9 +190,71 @@ export default function HomePage() {
         MMRGap: mmrGap,
       };
 
-      // Rekursi untuk pemain yang tersisa
+       (Rekursi untuk pemain yang tersisa)
       assignRooms(players, result, roomIndex + 1, startIndex + playerCount);
     };
+    */
+
+    const createBalancedTeamIterative = () => { 
+    try {
+      const playersDataLength = playersData.length
+      let Team1 = []
+      let Team2 = []
+
+      if (playersData.length > 0) {
+        const playerPerTeams = Math.floor(10 / 2)
+      
+        // for (let i = 0; i < playersData.length; i++) {
+        //   const currentPlayer = playersData[i]
+
+        //   if (Team1.length < playerPerTeams) {
+        //     Team1.push(currentPlayer)
+        //   } else if (Team2.length < playerPerTeams / 2) {
+        //     Team2.push(currentPlayer)
+        //   }
+        // }
+
+        playersData.forEach((player, index) => {
+          if (Team1.length < playerPerTeams) {
+            Team1.push(player)
+          }else if (Team2.length < playerPerTeams) {
+            Team2.push(player)
+          }
+        })
+      }
+
+      return {
+        Team1,
+        Team2
+      }
+    }catch (e) {
+      console.log(e.message)
+    }
+  }
+
+  const createBalancedTeamRecursive = (playersData, n = playersData.length, Team1 = [], Team2 = []) => {
+    try {
+      if (n === 0) {
+        return {
+          Team1,
+          Team2
+        }
+      } else {
+        const playerPerTeams = 10
+        const currentPlayer = playersData[n - 1]
+
+        if (Team1.length < playerPerTeams / 2) {
+          Team1.push(currentPlayer)
+        } else if (Team2.length < playerPerTeams / 2) {
+          Team2.push(currentPlayer)
+        }
+
+        return createBalancedTeamRecursive(playersData, n - 1, Team1, Team2);
+      }
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
 
     useEffect(() => { 
         fetchAllPlayers();
